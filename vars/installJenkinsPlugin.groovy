@@ -6,7 +6,7 @@ import java.util.logging.Logger
 // Installs the given list of Jenkins plugins if not installed already. 
 // Each entry needs to contain the plugin name and its version (e.g. git@2.0).
 @NonCPS
-def call(List<String> pluginsToInstall) {
+def call(pluginsToInstall) {
   def logger = Logger.getLogger("")
   def newPluginInstalled = false
   def initialized = false
@@ -30,7 +30,7 @@ def call(List<String> pluginsToInstall) {
 
         def plugin = uc.getPlugin(pluginName)
         if (plugin) {
-          println "Installing $it Jenkins Plugin ..."
+          println "Installing '$pluginName' Jenkins Plugin ..."
 
           def installFuture = plugin.deploy()
           while(!installFuture.isDone()) {
