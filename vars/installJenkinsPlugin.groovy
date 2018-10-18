@@ -15,18 +15,19 @@ def call(List<String> pluginsToInstall) {
   def uc = instance.getUpdateCenter()
 
   pluginsToInstall.each {
-    stage("Installation of '${it}' Jenkins Plugin.") {
-      // Install the plugin.
+    def String pluginName = it
 
-      if (!pm.getPlugin("${it}")) {
-        println "Plugin not installed yet - Searching ${it} in the update center."
+    stage("Installation of '$pluginName' Jenkins Plugin.") {
+      // Install the plugin.
+      if (!pm.getPlugin(pluginName)) {
+        println "Plugin not installed yet - Searching '$pluginName' in the update center."
         // Check for updates.
         if (!initialized) {
           uc.updateAllSites()
           initialized = true
         }
 
-        def plugin = uc.getPlugin("${it}")
+        def plugin = uc.getPlugin(pluginName)
         if (plugin) {
           println "Installing $it Jenkins Plugin ..."
           def installFuture = plugin.deploy()
@@ -36,7 +37,7 @@ def call(List<String> pluginsToInstall) {
           
           println "... Plugin has been installed"
         } else {
-          println "Could not find the" + it + "Jenkins Plugin."
+          println "Could not find the '$pluginName' Jenkins Plugin."
         }
       }
     }
