@@ -14,8 +14,9 @@ def call(List<String> pluginsToInstall) {
   def pm = instance.getPluginManager()
   def uc = instance.getUpdateCenter()
 
-  for (i=0; i<pluginsToInstall.size(); i++) {
-    def String pluginName = pluginsToInstall[i]
+  int i = 0
+  while (i<pluginsToInstall.size()) {
+    def String pluginName = pluginsToInstall[i++]
 
     stage("Installation of '$pluginName' Jenkins Plugin.") {
       // Install the plugin.
