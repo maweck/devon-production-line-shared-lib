@@ -45,7 +45,6 @@ stage("Installation of Jenkins Plugins.") {
       } else {
         println "The '$pluginName' Jenkins Plugin is already installed."
       }
-       i++
     }
 
    
