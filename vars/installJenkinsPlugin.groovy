@@ -19,7 +19,7 @@ def call(List<String> pluginsToInstall) {
       // Install the plugin.
 
       if (!pm.getPlugin("${it}")) {
-        println "Plugin not installed yet - Searching $it in the update center."
+        println "Plugin not installed yet - Searching ${it} in the update center."
         // Check for updates.
         if (!initialized) {
           uc.updateAllSites()
@@ -36,7 +36,7 @@ def call(List<String> pluginsToInstall) {
           
           println "... Plugin has been installed"
         } else {
-          println "Could not find the $it Jenkins Plugin."
+          println "Could not find the ${it} Jenkins Plugin."
         }
       }
     }
