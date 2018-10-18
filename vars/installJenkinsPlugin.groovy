@@ -14,7 +14,7 @@ def call(List<String> pluginsToInstall) {
   def pm = instance.getPluginManager()
   def uc = instance.getUpdateCenter()
 
-  pluginsToInstall.each {
+  pluginsToInstall.each { it ->
     stage("Installation of '${it}' Jenkins Plugin.") {
       // Install the plugin.
 
