@@ -16,7 +16,11 @@ def call(List<String> pluginsToInstall) {
 
   int i = 0
   while (i<pluginsToInstall.size()) {
+      println pluginsToInstall[i]
     def String pluginName = pluginsToInstall[i++]
+  println pluginsToInstall[0]
+  println pluginsToInstall[1]
+
 
     stage("Installation of '$pluginName' Jenkins Plugin.") {
       // Install the plugin.
