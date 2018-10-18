@@ -36,7 +36,7 @@ def call(List<String> pluginsToInstall) {
           
           println "... Plugin has been installed"
         } else {
-          println "Could not find the ${it} Jenkins Plugin."
+          println "Could not find the" + it + "Jenkins Plugin."
         }
       }
     }
