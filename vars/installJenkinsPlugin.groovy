@@ -3,16 +3,16 @@
 import jenkins.model.*
 import java.util.logging.Logger
 
-def logger = Logger.getLogger("")
-def installed = false
-def initialized = false
-def instance = Jenkins.getInstance()
-def pm = instance.getPluginManager()
-def uc = instance.getUpdateCenter()
-
 // Installs the given list of Jenkins plugins if not installed already. 
 // Each entry needs to contain the plugin name and its version (e.g. git@2.0).
 def call(List[] pluginsToInstall) {
+  def logger = Logger.getLogger("")
+  def installed = false
+  def initialized = false
+  def instance = Jenkins.getInstance()
+  def pm = instance.getPluginManager()
+  def uc = instance.getUpdateCenter()
+
   pluginsToInstall.each {
     stage("Installation of " + it + "' Jenkins Plugin.") {
       // Install the plugin.
