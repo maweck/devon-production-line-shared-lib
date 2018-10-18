@@ -17,36 +17,37 @@ def call(pluginsToInstall) {
   def pm = instance.getPluginManager()
   def uc = instance.getUpdateCenter()
 
-stage("Installation of Jenkins Plugins.") {
-  pluginsToInstall.each {
-    def String pluginName = it
-    // Check if the plugin is already installed.
-    if (!pm.getPlugin(pluginName)) {
-      println "Plugin not installed yet - Searching '$pluginName' in the update center."
-      // Check for updates.
-      if (!initialized) {
-        uc.updateAllSites()
-        initialized = true
-      }
-
-      def plugin = uc.getPlugin(pluginName)
-      if (plugin) {
-        println "Installing '$pluginName' Jenkins Plugin ..."
-
-        def installFuture = plugin.deploy()
-        while(!installFuture.isDone()) {
-          sleep(3000)
+  stage("Installation of Jenkins Plugins.") {
+    pluginsToInstall.each {
+      def String pluginName = it
+      // Check if the plugin is already installed.
+      if (!pm.getPlugin(pluginName)) {
+        println "Plugin not installed yet - Searching '$pluginName' in the update center."
+        // Check for updates.
+        if (!initialized) {
+          uc.updateAllSites()
+          initialized = true
         }
-        newPluginInstalled = true
 
-        println "... Plugin has been installed"
+        def plugin = uc.getPlugin(pluginName)
+        if (plugin) {
+          println "Installing '$pluginName' Jenkins Plugin ..."
+
+          def installFuture = plugin.deploy()
+          while(!installFuture.isDone()) {
+            sleep(3000)
+          }
+          newPluginInstalled = true
+
+          println "... Plugin has been installed"
+        } else {
+          println "Could not find the '$pluginName' Jenkins Plugin."
+        }
       } else {
-        println "Could not find the '$pluginName' Jenkins Plugin."
+        println "The '$pluginName' Jenkins Plugin is already installed."
       }
-    } else {
-      println "The '$pluginName' Jenkins Plugin is already installed."
     }
   }
 
-    return installed
+  return installed
 }
