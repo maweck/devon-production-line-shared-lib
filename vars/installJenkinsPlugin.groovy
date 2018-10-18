@@ -13,39 +13,37 @@ def uc = instance.getUpdateCenter()
 // Installs the given list of Jenkins plugins if not installed already. 
 // Each entry needs to contain the plugin name and its version (e.g. git@2.0).
 def call(List[] pluginsToInstall) {
-  node( ) {
-    pluginsToInstall.each {
-      stage("Installation of " + it + "' Jenkins Plugin.") {
-        // Install the plugin.
+  pluginsToInstall.each {
+    stage("Installation of " + it + "' Jenkins Plugin.") {
+      // Install the plugin.
 
-        if (!pm.getPlugin(it)) {
-          logger.info("Plugin not installed yet - Searching '" + it + "' in the update center.")
-          // Check for updates.
-          if (!initialized) {
-            uc.updateAllSites()
-            initialized = true
-          }
+      if (!pm.getPlugin(it)) {
+        logger.info("Plugin not installed yet - Searching '" + it + "' in the update center.")
+        // Check for updates.
+        if (!initialized) {
+          uc.updateAllSites()
+          initialized = true
+        }
 
-          def plugin = uc.getPlugin(it)
-          if (plugin) {
-            logger.info("Installing '" + it + "' Jenkins Plugin ...")
-    	      def installFuture = plugin.deploy()
-            while(!installFuture.isDone()) {
-              sleep(3000)
-            }
-            
-            logger.info("... Plugin has been installed")
-          } else {
-            logger.warning("Could not find the '" + it + "' Jenkins Plugin.")
+        def plugin = uc.getPlugin(it)
+        if (plugin) {
+          logger.info("Installing '" + it + "' Jenkins Plugin ...")
+          def installFuture = plugin.deploy()
+          while(!installFuture.isDone()) {
+            sleep(3000)
           }
+          
+          logger.info("... Plugin has been installed")
+        } else {
+          logger.warning("Could not find the '" + it + "' Jenkins Plugin.")
         }
       }
-      installed = true
-    } 
-    if (installed) {
-      logger.info("Plugins installed, initializing a restart!")
-      instance.save()
-      instance.restart()
     }
+    installed = true
+  } 
+  if (installed) {
+    logger.info("Plugins installed, initializing a restart!")
+    instance.save()
+    instance.restart()
   }
 }
