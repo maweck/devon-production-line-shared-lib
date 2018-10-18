@@ -26,9 +26,9 @@ def call(List<String> pluginsToInstall) {
           initialized = true
         }
 
-        def plugin = uc.getPlugin(it)
+        def plugin = uc.getPlugin("${it}")
         if (plugin) {
-          logger.info("Installing '" + it + "' Jenkins Plugin ...")
+          logger.info("Installing '${it}' Jenkins Plugin ...")
           def installFuture = plugin.deploy()
           while(!installFuture.isDone()) {
             sleep(3000)
