@@ -14,11 +14,12 @@ def call(pluginsToInstall) {
   def pm = instance.getPluginManager()
   def uc = instance.getUpdateCenter()
 
+stage("Installation of Jenkins Plugins.") {
   int i = 0
   while (i < pluginsToInstall.size()) {
     def String pluginName = pluginsToInstall[i]
 
-    stage("Installation of '$pluginName' Jenkins Plugin.") {
+  
       // Install the plugin.
       if (!pm.getPlugin(pluginName)) {
         println "Plugin not installed yet - Searching '$pluginName' in the update center."
