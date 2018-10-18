@@ -49,5 +49,5 @@ def call(pluginsToInstall) {
     }
   }
 
-  return installed
+  return newPluginInstalled
 }
