@@ -18,7 +18,7 @@ def call(List<String> pluginsToInstall) {
     stage("Installation of '${it}' Jenkins Plugin.") {
       // Install the plugin.
 
-      if (!pm.getPlugin(it)) {
+      if (!pm.getPlugin("${it}")) {
         logger.info("Plugin not installed yet - Searching '${it}' in the update center.")
         // Check for updates.
         if (!initialized) {
