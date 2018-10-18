@@ -46,13 +46,15 @@ stage("Installation of Jenkins Plugins.") {
       } else {
         println "The '$pluginName' Jenkins Plugin is already installed."
       }
+       i++
     }
 
-    i++
-  } 
+   
+ 
   if (newPluginInstalled) {
     println "Plugins installed, initializing a restart!"
     instance.save()
     instance.restart()
   }
+    }
 }
