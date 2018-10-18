@@ -15,12 +15,8 @@ def call(List<String> pluginsToInstall) {
   def uc = instance.getUpdateCenter()
 
   int i = 0
-  while (i<pluginsToInstall.size()) {
-      println pluginsToInstall[i]
-    def String pluginName = pluginsToInstall[i++]
-  println pluginsToInstall[0]
-  println pluginsToInstall[1]
-
+  while (i < pluginsToInstall.size()) {
+    def String pluginName = pluginsToInstall[i]
 
     stage("Installation of '$pluginName' Jenkins Plugin.") {
       // Install the plugin.
@@ -50,6 +46,8 @@ def call(List<String> pluginsToInstall) {
         println "The '$pluginName' Jenkins Plugin is already installed."
       }
     }
+
+    i++
   } 
   if (newPluginInstalled) {
     println "Plugins installed, initializing a restart!"
