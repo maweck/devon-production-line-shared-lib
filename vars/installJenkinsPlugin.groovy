@@ -9,7 +9,7 @@ def call(List[] pluginsToInstall) {
   def logger = Logger.getLogger("")
   def installed = false
   def initialized = false
-  def instance = Jenkins.getInstance()
+  def Jenkins instance = Jenkins.getInstance()
   def pm = instance.getPluginManager()
   def uc = instance.getUpdateCenter()
 
