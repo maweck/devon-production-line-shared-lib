@@ -8,7 +8,7 @@ import java.util.logging.Logger
 @NonCPS
 def call(List<String> pluginsToInstall) {
   def logger = Logger.getLogger("")
-  def installed = false
+  def newPluginInstalled = false
   def initialized = false
   def instance = Jenkins.getInstance()
   def pm = instance.getPluginManager()
@@ -30,20 +30,23 @@ def call(List<String> pluginsToInstall) {
         def plugin = uc.getPlugin(pluginName)
         if (plugin) {
           println "Installing $it Jenkins Plugin ..."
+
           def installFuture = plugin.deploy()
           while(!installFuture.isDone()) {
             sleep(3000)
           }
-          
+          newPluginInstalled = true
+
           println "... Plugin has been installed"
         } else {
           println "Could not find the '$pluginName' Jenkins Plugin."
         }
+      } else {
+        println "The '$pluginName' Jenkins Plugin is already installed."
       }
     }
-    installed = true
   } 
-  if (installed) {
+  if (newPluginInstalled) {
     println "Plugins installed, initializing a restart!"
     instance.save()
     instance.restart()
