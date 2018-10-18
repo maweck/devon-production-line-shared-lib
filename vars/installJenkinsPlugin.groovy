@@ -1,6 +1,7 @@
 #!/usr/bin/env groovy
 
 import jenkins.model.*
+import hudson.model.*
 import java.util.logging.Logger
 
 // Installs the given list of Jenkins plugins if not installed already. 
@@ -9,7 +10,7 @@ def call(List[] pluginsToInstall) {
   def logger = Logger.getLogger("")
   def installed = false
   def initialized = false
-  def Jenkins instance = Jenkins.getInstance()
+  def instance = Hudson.instance
   def pm = instance.getPluginManager()
   def uc = instance.getUpdateCenter()
 
