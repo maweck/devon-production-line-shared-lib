@@ -24,5 +24,4 @@ Currently available configuration packages:
 
 * Jenkins (```./doc/configuration/jenkins.asciidoc```)
 * GitLab (```./doc/configuration/gitlab.asciidoc```)
-
-
+* SonarQube (```./doc/configuration/sonarqube.asciidoc```)
