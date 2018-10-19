@@ -109,7 +109,7 @@ import jenkins.model.*
       instance.restart()
     }
   }
-  public restartJenkins {
+  public restartJenkins() {
     restartJenkins( false )
   }
 }
