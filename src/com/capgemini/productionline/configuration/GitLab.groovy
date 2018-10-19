@@ -37,18 +37,18 @@ class GitLab implements Serializable {
   }
 
   public createProject(String groupname, String projectname, String projectpath, String projectdescription, String branchname) {
-    groupid=getGroupId(groupname)
+    def groupid=getGroupId(groupname)
     // create project in target group
     this.context.httpRequest consoleLogResponseBody: true, customHeaders: [[maskValue: true, name: 'PRIVATE-TOKEN', value: accesstoken]], httpMode: 'POST', url: 'http://gitlab-core/gitlab/api/v4/projects?name='+projectname+'&path='+projectpath+'&namespace_id='+groupid+'&default_branch='+branchname+'description='+java.net.URLEncoder.encode(projectdescription, "UTF-8")
   }
 
   public protectBranch(String group, String project, String branchname) {
-    projectid=getProjectId(groupname)
+    def projectid=getProjectId(groupname)
     this.context.httpRequest consoleLogResponseBody: true, customHeaders: [[maskValue: true, name: 'PRIVATE-TOKEN', value: accesstoken]], httpMode: 'PUT', url: 'http://gitlab-core/gitlab/api/v4/projects/'+projectid+'/repository/branches/'+branchname+'/protect'
   }
 
   public unprotectBranch(String group, String project, String branchname) {
-    projectid=getProjectId(groupname)
+    def projectid=getProjectId(groupname)
     this.context.httpRequest consoleLogResponseBody: true, customHeaders: [[maskValue: true, name: 'PRIVATE-TOKEN', value: accesstoken]], httpMode: 'PUT', url: 'http://gitlab-core/gitlab/api/v4/projects/'+projectid+'/repository/branches/'+branchname+'/unprotect'
   }
 }
