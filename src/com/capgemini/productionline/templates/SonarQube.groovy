@@ -19,8 +19,8 @@ class SonarQube implements Serializable {
     * This method is using the provided username to request an API Token.
     */
     def getAuthToken(String tokenName) {
-        response = this.context.httpRequest consoleLogResponseBody: true, customHeaders: [[maskValue: true, name: 'X-Forwarded-User', value: username], [maskValue: true, name: 'X-Forwarded-Groups', value: 'admins']], httpMode: 'POST', url: 'http://sonarqube-core:9000/sonarqube/api/user_tokens/generate?name=' + tokenName
-        parsedJsonResponse = readJSON text: response.getContent()
+        def response = this.context.httpRequest consoleLogResponseBody: true, customHeaders: [[maskValue: true, name: 'X-Forwarded-User', value: username], [maskValue: true, name: 'X-Forwarded-Groups', value: 'admins']], httpMode: 'POST', url: 'http://sonarqube-core:9000/sonarqube/api/user_tokens/generate?name=' + tokenName
+        def parsedJsonResponse = readJSON text: response.getContent()
 
         // Return a token 
         return parsedJsonResponse.token
