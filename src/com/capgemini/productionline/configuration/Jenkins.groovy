@@ -50,42 +50,39 @@ import jenkins.model.*
    * @param pluginsToinstall
    *    list of plugins to install
    * @return
-   *    Boolean value  which reflects wether a plugin was installed and a restart is required
+   *    Boolean value which reflects wether a plugin was installed and a restart is required
    */
-  Public Boolean installPlugin( pluginsToInstall ) {
+  public Boolean installPlugin( pluginsToInstall ) {
     def newPluginInstalled = false
     def initialized = false
     def pm = instance.getPluginManager()
     def uc = instance.getUpdateCenter()
 
-    stage("Jenkins Plugin installation") {
-      pluginsToInstall.each {
-        def String pluginName = it
-        // Check if the plugin is already installed.
-        if (!pm.getPlugin(pluginName)) {
-          println "Plugin not installed yet - Searching '$pluginName' in the update center."
-          // Check for updates.
-          if (!initialized) {
-            uc.updateAllSites()
-            initialized = true
-          }
-
-          def plugin = uc.getPlugin(pluginName)
-          if (plugin) {
-            println "Installing '$pluginName' Jenkins Plugin ..."
-            def installFuture = plugin.deploy()
-            while(!installFuture.isDone()) {
-              sleep(3000)
-            }
-            newPluginInstalled = true
-
-            println "... Plugin has been installed"
-          } else {
-            println "Could not find the '$pluginName' Jenkins Plugin."
-          }
-        } else {
-          println "The '$pluginName' Jenkins Plugin is already installed."
+    pluginsToInstall.each {
+      def String pluginName = it
+      // Check if the plugin is already installed.
+      if (!pm.getPlugin(pluginName)) {
+        println "Plugin not installed yet - Searching '$pluginName' in the update center."
+        // Check for updates.
+        if (!initialized) {
+          uc.updateAllSites()
+          initialized = true
         }
+
+        def plugin = uc.getPlugin(pluginName)
+        if (plugin) {
+          println "Installing '$pluginName' Jenkins Plugin ..."
+          def installFuture = plugin.deploy()
+          while(!installFuture.isDone()) {
+            sleep(3000)
+          }
+          newPluginInstalled = true
+          println "... Plugin has been installed"
+        } else {
+          println "Could not find the '$pluginName' Jenkins Plugin."
+        }
+      } else {
+        println "The '$pluginName' Jenkins Plugin is already installed."
       }
     }
     return newPluginInstalled
@@ -98,7 +95,7 @@ import jenkins.model.*
    * @param safeRestart
    *    Optional Boolean parameter stating if the restart should be safe (default: false)
    */
-  Public restartJenkins( safeRestart ) {
+  public restartJenkins( safeRestart ) {
     def instance = Jenkins.getInstance()
     if ( safeRestart ) { 
       instance.safeRestart()
@@ -106,7 +103,7 @@ import jenkins.model.*
       instance.restart()
     }
   }
-  Public restartJenkins( safeRestart ) {
+  public restartJenkins( safeRestart ) {
     restartJenkins( false )
   }
 }
