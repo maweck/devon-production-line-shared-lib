@@ -29,10 +29,10 @@ class SonarQube implements Serializable {
         connection.connect()
 
         echo "output"
-        echo connection.getResponseCode();
+        echo "${connection.getResponseCode()}"
     }
 
     def importQualityProfile() {
-        echo "output 2"
+        Script.echo("output 2")
     }
 }
