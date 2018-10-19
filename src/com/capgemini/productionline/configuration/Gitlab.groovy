@@ -12,8 +12,9 @@ class GitlabConfiguration implements Serializable {
 
   def String accesstoken = ""
 
-  GitlabConfiguration (context) {
+  GitlabConfiguration (context, token) {
     this.context = context
+    this.accesstoken = token
   }
 
   public int getGroupId (String groupname) {
