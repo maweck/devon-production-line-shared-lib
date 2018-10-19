@@ -31,4 +31,8 @@ class SonarQube implements Serializable {
         println "output"
         println connection.getResponseCode();
     }
+
+    def importQualityProfile() {
+        println "output 2"
+    }
 }
