@@ -41,6 +41,11 @@ class GitLab implements Serializable {
     this.context.httpRequest consoleLogResponseBody: true, customHeaders: [[maskValue: true, name: 'PRIVATE-TOKEN', value: accesstoken]], httpMode: 'POST', url: 'http://gitlab-core/gitlab/api/v4/projects?name='+projectname+'&path='+projectpath+'&namespace_id='+groupid+'&default_branch='+branchname+'&description='+java.net.URLEncoder.encode(projectdescription, "UTF-8")
   }
 
+  public createBranch(String group, String project, String from, String branchname) {
+    def projectid=getProjectId(groupname)
+    this.context.httpRequest consoleLogResponseBody: true, customHeaders: [[maskValue: true, name: 'PRIVATE-TOKEN', value: accesstoken]], httpMode: 'POST', url: 'http://gitlab-core/gitlab/api/v4/projects/'+projectid+'/repository/branches?branch='+branchname+'&ref='+from
+  }
+
   public protectBranch(String group, String project, String branchname) {
     def projectid=getProjectId(groupname)
     this.context.httpRequest consoleLogResponseBody: true, customHeaders: [[maskValue: true, name: 'PRIVATE-TOKEN', value: accesstoken]], httpMode: 'PUT', url: 'http://gitlab-core/gitlab/api/v4/projects/'+projectid+'/repository/branches/'+branchname+'/protect'
