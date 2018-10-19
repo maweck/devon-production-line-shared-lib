@@ -8,22 +8,22 @@ package com.capgemini.productionline.configuration.gitlab
  * Created by tlohmann on 19.10.2018.
  */
 
-class GitlabConfiguration implements Serializable {
+class GitLab implements Serializable {
 
   def String accesstoken = ""
 
-  GitlabConfiguration (context, token) {
+  GitLab (context, token) {
     this.context = context
     this.accesstoken = token
   }
 
-  public int getGroupId (String groupname) {
+  private int getGroupId (String groupname) {
     def searchresult=this.context.httpRequest consoleLogResponseBody: true, customHeaders: [[maskValue: true, name: 'PRIVATE-TOKEN', value: accesstoken]], httpMode: 'GET', url: 'http://gitlab-core/gitlab/api/v4/groups?name='+groupname
     def jsonObject = this.context.readJSON text: searchresult.getContent()
     return jsonObject.id
   } 
 
-  public int getProjectId (String groupname, String projectname) {
+  private int getProjectId (String groupname, String projectname) {
     def groupid=getGroupid(groupname)
     def searchresult=this.context.httpRequest consoleLogResponseBody: true, customHeaders: [[maskValue: true, name: 'PRIVATE-TOKEN', value: accesstoken]], httpMode: 'GET', url: 'http://gitlab-core/gitlab/api/v4/groups/'+groupid+'/projects?name='+projectname
     def jsonObject = this.context.readJSON text: searchresult.getContent()
