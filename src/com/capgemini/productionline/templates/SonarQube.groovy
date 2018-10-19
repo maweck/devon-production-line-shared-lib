@@ -29,4 +29,8 @@ class SonarQube implements Serializable {
     def importQualityProfile() {
         // TODO
     }
+
+    def installPlugin() {
+        // TODO
+    }
 }
