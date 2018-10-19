@@ -1,8 +1,13 @@
 package com.capgemini.productionline.configuration.jenkins
 
 // following imports needed for the credential objects
+import com.cloudbees.plugins.credentials.impl.*;
+import com.cloudbees.plugins.credentials.*;
+import com.cloudbees.plugins.credentials.domains.*;
 import org.jenkinsci.plugins.plaincredentials.*
 import org.jenkinsci.plugins.plaincredentials.impl.*
+import com.cloudbees.plugins.credentials.common.*
+import hudson.util.Secret
 
 // following imports needed jenkins plugin installation
 import jenkins.model.*
@@ -29,9 +34,10 @@ import jenkins.model.*
    * @param password
    *    password of the credentials object.
    */
-  public createCredatialObjectUsernamePassword(String id, String desc, String username, String password) {
+  public UsernamePasswordCredentialsImpl createCredatialObjectUsernamePassword(String id, String desc, String username, String password) {
     // create credential object
-    Credentials c = (Credentials) new UsernamePasswordCredentialsImpl(CredentialsScope.GLOBAL, id, desc, username, password)
+    UsernamePasswordCredentialsImpl credObj = new UsernamePasswordCredentialsImpl(CredentialsScope.GLOBAL, id, desc, username, password)
+    Credentials c = (Credentials) credObj
     println "Add credentials " + id + " in global store"
     // store global credential object
     SystemCredentialsProvider.getInstance().getStore().addCredentials(Domain.global(), c)
@@ -39,7 +45,7 @@ import jenkins.model.*
  
   public deleteCredatialObject(String id) {
     println "Deleting credential " + id + " in global store"
-    def deleteCredentials = CredentialsMatchers.withId(credentialsId)
+//    def deleteCredentials = CredentialsMatchers.withId(credentialsId)
   }
  
 
