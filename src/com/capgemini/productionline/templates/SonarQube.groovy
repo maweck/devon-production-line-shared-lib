@@ -25,6 +25,7 @@ class SonarQube implements Serializable {
         connection.addRequestProperty("X-Forwarded-Group", "sonarqube-admins")
         connection.addRequestProperty("Accept", "application/json")
         connection.setRequestMethod("POST")
+        connection.connect()
 
         println connection.getResponseCode();
     }
