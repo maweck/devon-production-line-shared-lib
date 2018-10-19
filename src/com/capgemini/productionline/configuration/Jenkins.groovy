@@ -36,7 +36,7 @@ import jenkins.model.*
    */
   public UsernamePasswordCredentialsImpl createCredatialObjectUsernamePassword(String id, String desc, String username, String password) {
     // create credential object
-    credObj = new UsernamePasswordCredentialsImpl(CredentialsScope.GLOBAL, id, desc, username, password)
+    def credObj = new UsernamePasswordCredentialsImpl(CredentialsScope.GLOBAL, id, desc, username, password)
     Credentials c = (Credentials) credObj
     println "Add credentials " + id + " in global store"
     // store global credential object
