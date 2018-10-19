@@ -1,6 +1,8 @@
 #!/usr/bin/groovy
 package com.capgemini.productionline.templates;
 
+import org.apache.commons.httpclient.NameValuePair 
+
 class SonarQube implements Serializable {
     def String username;
     def String sonarQubeBaseUrl;
@@ -26,13 +28,14 @@ class SonarQube implements Serializable {
         connection.addRequestProperty("Accept", "application/json")
         connection.setRequestMethod("POST")
 
-        List<NameValuePair> params = new ArrayList<NameValuePair>();
-        params.add(new BasicNameValuePair("name", tokenName));
+        NameValuePair[] data = [ 
+            new NameValuePair("name", tokenName)
+        ] 
 
         OutputStream outputStream = connection.getOutputStream();
         BufferedWriter writer = new BufferedWriter(
                 new OutputStreamWriter(outputStream, "UTF-8"));
-        writer.write(getQuery(params));
+        writer.write(getQuery(data));
         writer.flush();
         writer.close();
         outputStream.close();
