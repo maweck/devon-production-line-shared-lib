@@ -40,12 +40,12 @@ class GitlabConfiguration implements Serializable {
     this.context.httpRequest consoleLogResponseBody: true, customHeaders: [[maskValue: true, name: 'PRIVATE-TOKEN', value: accesstoken]], httpMode: 'POST', url: 'http://gitlab-core/gitlab/api/v4/projects?name='+projectname+'&path='+projectpath+'&namespace_id='+groupid+'&default_branch='+branchname+'description='+projectdescription
   }
 
-  protectBranch(String group, String project, String branchname) {
+  public protectBranch(String group, String project, String branchname) {
     projectid=getProjectId(groupname)
     this.context.httpRequest consoleLogResponseBody: true, customHeaders: [[maskValue: true, name: 'PRIVATE-TOKEN', value: accesstoken]], httpMode: 'PUT', url: 'http://gitlab-core/gitlab/api/v4/projects/'+projectid+'/repository/branches/'+branchname+'/protect'
   }
 
-  unprotectBranch(String group, String project, String branchname) {
+  public unprotectBranch(String group, String project, String branchname) {
     projectid=getProjectId(groupname)
     this.context.httpRequest consoleLogResponseBody: true, customHeaders: [[maskValue: true, name: 'PRIVATE-TOKEN', value: accesstoken]], httpMode: 'PUT', url: 'http://gitlab-core/gitlab/api/v4/projects/'+projectid+'/repository/branches/'+branchname+'/unprotect'
   }
