@@ -11,7 +11,8 @@ package com.capgemini.productionline.configuration.gitlab
 class GitLab implements Serializable {
 
   def String accesstoken = ""
-
+  def context
+  
   GitLab (context, token) {
     this.context = context
     this.accesstoken = token
