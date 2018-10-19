@@ -32,7 +32,8 @@ class GitLab implements Serializable {
   } 
 
   public createGroup(String groupname, String grouppath, String groupdesc, String grouptype) {
-    this.context.httpRequest consoleLogResponseBody: true, customHeaders: [[maskValue: true, name: 'PRIVATE-TOKEN', value: accesstoken]], httpMode: 'POST', url: 'http://gitlab-core/gitlab/api/v4/groups?name='+groupname+'&path='+grouppath+'&description='+java.net.URLEncoder.encode(groupdesc, "UTF-8")+'&visibility='+grouptype
+    this.context.httpRequest consoleLogResponseBody: true, customHeaders: [[maskValue: true, name: 'PRIVATE-TOKEN', value: accesstoken]], httpMode: 'POST', url: 'http://gitlab-core/gitlab/api/v4/groups?name='+groupname+'&path='+grouppath
+    //+'&description='+java.net.URLEncoder.encode(groupdesc, "UTF-8")+'&visibility='+grouptype
   }
 
   public createProject(String groupname, String projectname, String projectpath, String projectdescription, String branchname) {
