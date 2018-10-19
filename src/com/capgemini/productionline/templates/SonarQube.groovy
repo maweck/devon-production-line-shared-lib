@@ -28,14 +28,10 @@ class SonarQube implements Serializable {
         connection.addRequestProperty("Accept", "application/json")
         connection.setRequestMethod("POST")
 
-        NameValuePair[] data = [ 
-            new NameValuePair("name", tokenName)
-        ] 
-
         OutputStream outputStream = connection.getOutputStream();
         BufferedWriter writer = new BufferedWriter(
                 new OutputStreamWriter(outputStream, "UTF-8"));
-        writer.write(data);
+        writer.write("name="+tokenName);
         writer.flush();
         writer.close();
         outputStream.close();
