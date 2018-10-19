@@ -28,7 +28,7 @@ class SonarQube implements Serializable {
         connection.connect()
 
         // connection.getResponseCode()
-        return connection.getResponseCode() + ":" connection.getResponseMessage();
+        return connection.getResponseCode() + ":" + connection.getResponseMessage();
     }
 
     def importQualityProfile() {
