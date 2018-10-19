@@ -1,4 +1,4 @@
-package com.capgemini.productionline.configuration.gitlab
+package com.capgemini.productionline.configuration
 
 /**
  * Contains the configuration methods of the gitlab component
