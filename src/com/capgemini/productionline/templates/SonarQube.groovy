@@ -1,7 +1,7 @@
 #!/usr/bin/groovy
 package com.capgemini.productionline.templates;
 
-import org.apache.commons.httpclient.NameValuePair 
+import jenkins.plugins.http_request.*
 
 class SonarQube implements Serializable {
     def String username;
