@@ -20,12 +20,10 @@ class SonarQube implements Serializable {
         URL sonarQubeTokenGenerateUrl = new URL(sonarQubeBaseUrl + "/api/user_tokens/generate")
 
         HttpURLConnection connection = (HttpURLConnection) sonarQubeTokenGenerateUrl.openConnection();
+        connection.setDoOutput( true );
         connection.addRequestProperty("X-Forwarded-User", username)
         connection.addRequestProperty("X-Forwarded-Group", "sonarqube-admins")
         connection.addRequestProperty("Accept", "application/json")
-        connection.with {
-            requestMethod = 'GET'
-            println content.text
-        }
+        connection.setRequestMethod("POST")
     }
 }
