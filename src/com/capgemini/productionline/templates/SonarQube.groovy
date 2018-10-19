@@ -9,13 +9,14 @@ class SonarQube implements Serializable {
     * Initiate a new 'SonarQube' instance by providing a username and the SonarQube base URL.
     */
     SonarQube(String username, String sonarQubeBaseUrl)  {
-        this.username = username;
+    SonarQube(String username, String sonarQubeBaseUrl)  {
+    SonarQube(String username, String sonarQubeBaseUrl)  {
+        this.corpCredentialsObject = corpCredentialsObject;
         this.sonarQubeBaseUrl = sonarQubeBaseUrl;
     }
 
     /**
-    * This method is using X-Forwarded-Headers to request an API Token 
-    * from SonarQube for the user of this 'SonarQube' instance.
+    * This method is using the provided username to request an API Token.
     */
     def getAuthToken() {
         URL sonarQubeTokenGenerateUrl = new URL(sonarQubeBaseUrl + "/api/user_tokens/generate")
@@ -25,7 +26,6 @@ class SonarQube implements Serializable {
         connection.addRequestProperty("X-Forwarded-Group", "sonarqube-admins")
         connection.addRequestProperty("Accept", "application/json")
         connection.with {
-            doOutput = true
             requestMethod = 'GET'
             println content.text
         }
