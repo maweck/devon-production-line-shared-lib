@@ -2,8 +2,8 @@
 package com.capgemini.productionline.templates;
 
 class SonarQube implements Serializable {
-    String username;
-    String sonarQubeBaseUrl;
+    def String username;
+    def String sonarQubeBaseUrl;
 
     /**
     * Initiate a new 'SonarQube' instance by providing a username and the SonarQube base URL.
