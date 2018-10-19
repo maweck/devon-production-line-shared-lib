@@ -18,17 +18,17 @@ class GitLab implements Serializable {
     this.accesstoken = token
   }
 
-  private int getGroupId (String groupname) {
+  private String getGroupId (String groupname) {
     def searchresult=this.context.httpRequest consoleLogResponseBody: true, customHeaders: [[maskValue: true, name: 'PRIVATE-TOKEN', value: accesstoken]], httpMode: 'GET', url: 'http://gitlab-core/gitlab/api/v4/groups?name='+groupname
     def jsonObject = this.context.readJSON text: searchresult.getContent()
-    return jsonObject.id
+    return jsonObject.id.toString()
   } 
 
-  private int getProjectId (String groupname, String projectname) {
+  private String getProjectId (String groupname, String projectname) {
     def groupid=getGroupid(groupname)
     def searchresult=this.context.httpRequest consoleLogResponseBody: true, customHeaders: [[maskValue: true, name: 'PRIVATE-TOKEN', value: accesstoken]], httpMode: 'GET', url: 'http://gitlab-core/gitlab/api/v4/groups/'+groupid+'/projects?name='+projectname
     def jsonObject = this.context.readJSON text: searchresult.getContent()
-    return jsonObject.id
+    return jsonObject.id.toString()
   } 
 
   public createGroup(String groupname, String grouppath, String groupdesc, String grouptype) {
