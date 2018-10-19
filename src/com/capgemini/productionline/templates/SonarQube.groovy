@@ -39,9 +39,17 @@ class SonarQube implements Serializable {
         outputStream.close();
         
         connection.connect()
+        
+        BufferedReader br = new BufferedReader(new InputStreamReader(c.getInputStream()));
+        StringBuilder sb = new StringBuilder();
+        String line;
+        while ((line = br.readLine()) != null) {
+            sb.append(line+"\n");
+        }
+        br.close();
 
         // connection.getResponseCode()
-        return connection.getResponseCode() + ":" + connection.getResponseMessage() + ":" +  connection.getContent();
+        return connection.getResponseCode() + ":" + connection.getResponseMessage() + ":" +  connection.getContent() + ":" + sb.toString();
     }
 
     def importQualityProfile() {
