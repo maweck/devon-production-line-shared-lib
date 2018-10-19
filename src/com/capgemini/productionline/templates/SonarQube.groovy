@@ -17,7 +17,6 @@ class SonarQube implements Serializable {
     * This method is using the provided username to request an API Token.
     */
     def getAuthToken() {
-        echo "output 1"
         URL sonarQubeTokenGenerateUrl = new URL(sonarQubeBaseUrl + "/api/user_tokens/generate")
 
         HttpURLConnection connection = (HttpURLConnection) sonarQubeTokenGenerateUrl.openConnection();
@@ -28,11 +27,11 @@ class SonarQube implements Serializable {
         connection.setRequestMethod("POST")
         connection.connect()
 
-        echo "output"
-        echo "${connection.getResponseCode()}"
+        // connection.getResponseCode()
+        return connection.getResponseMessage();
     }
 
     def importQualityProfile() {
-        Script.echo("output 2")
+        // TODO
     }
 }
