@@ -9,8 +9,6 @@ class SonarQube implements Serializable {
     * Initiate a new 'SonarQube' instance by providing a username and the SonarQube base URL.
     */
     SonarQube(String username, String sonarQubeBaseUrl)  {
-    SonarQube(String username, String sonarQubeBaseUrl)  {
-    SonarQube(String username, String sonarQubeBaseUrl)  {
         this.corpCredentialsObject = corpCredentialsObject;
         this.sonarQubeBaseUrl = sonarQubeBaseUrl;
     }
