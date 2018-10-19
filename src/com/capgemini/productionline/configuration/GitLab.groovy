@@ -12,7 +12,7 @@ class GitLab implements Serializable {
 
   def String accesstoken = ""
   def context
-  
+
   GitLab (context, token) {
     this.context = context
     this.accesstoken = token
@@ -32,13 +32,13 @@ class GitLab implements Serializable {
   } 
 
   public createGroup(String groupname, String grouppath, String groupdesc, String grouptype) {
-    this.context.httpRequest consoleLogResponseBody: true, customHeaders: [[maskValue: true, name: 'PRIVATE-TOKEN', value: accesstoken]], httpMode: 'POST', url: 'http://gitlab-core/gitlab/api/v4/groups?name='+groupname+'&path='+grouppath+'&description='+groupdesc+'&visibility='+grouptype
+    this.context.httpRequest consoleLogResponseBody: true, customHeaders: [[maskValue: true, name: 'PRIVATE-TOKEN', value: accesstoken]], httpMode: 'POST', url: 'http://gitlab-core/gitlab/api/v4/groups?name='+groupname+'&path='+grouppath+'&description="'+groupdesc+'"&visibility='+grouptype
   }
 
   public createProject(String groupname, String projectname, String projectpath, String projectdescription, String branchname) {
     groupid=getGroupId(groupname)
     // create project in target group
-    this.context.httpRequest consoleLogResponseBody: true, customHeaders: [[maskValue: true, name: 'PRIVATE-TOKEN', value: accesstoken]], httpMode: 'POST', url: 'http://gitlab-core/gitlab/api/v4/projects?name='+projectname+'&path='+projectpath+'&namespace_id='+groupid+'&default_branch='+branchname+'description='+projectdescription
+    this.context.httpRequest consoleLogResponseBody: true, customHeaders: [[maskValue: true, name: 'PRIVATE-TOKEN', value: accesstoken]], httpMode: 'POST', url: 'http://gitlab-core/gitlab/api/v4/projects?name='+projectname+'&path='+projectpath+'&namespace_id='+groupid+'&default_branch='+branchname+'description="'+projectdescription+'"'
   }
 
   public protectBranch(String group, String project, String branchname) {
