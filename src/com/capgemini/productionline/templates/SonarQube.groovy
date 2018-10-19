@@ -35,7 +35,7 @@ class SonarQube implements Serializable {
         OutputStream outputStream = connection.getOutputStream();
         BufferedWriter writer = new BufferedWriter(
                 new OutputStreamWriter(outputStream, "UTF-8"));
-        writer.write(getQuery(data));
+        writer.write(data);
         writer.flush();
         writer.close();
         outputStream.close();
