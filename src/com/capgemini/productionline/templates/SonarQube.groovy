@@ -16,7 +16,7 @@ class SonarQube implements Serializable {
     /**
     * This method is using the provided username to request an API Token.
     */
-    def getAuthToken() {
+    def getAuthToken(String tokenName) {
         URL sonarQubeTokenGenerateUrl = new URL(sonarQubeBaseUrl + "/api/user_tokens/generate")
 
         HttpURLConnection connection = (HttpURLConnection) sonarQubeTokenGenerateUrl.openConnection();
@@ -25,6 +25,18 @@ class SonarQube implements Serializable {
         connection.addRequestProperty("X-Forwarded-Group", "sonarqube-admins")
         connection.addRequestProperty("Accept", "application/json")
         connection.setRequestMethod("POST")
+
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("name", tokenName));
+
+        OutputStream outputStream = connection.getOutputStream();
+        BufferedWriter writer = new BufferedWriter(
+                new OutputStreamWriter(outputStream, "UTF-8"));
+        writer.write(getQuery(params));
+        writer.flush();
+        writer.close();
+        outputStream.close();
+        
         connection.connect()
 
         // connection.getResponseCode()
