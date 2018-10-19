@@ -40,7 +40,7 @@ class SonarQube implements Serializable {
         
         connection.connect()
         
-        BufferedReader br = new BufferedReader(new InputStreamReader(c.getInputStream()));
+        BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
         StringBuilder sb = new StringBuilder();
         String line;
         while ((line = br.readLine()) != null) {
