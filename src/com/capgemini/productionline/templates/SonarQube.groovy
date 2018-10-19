@@ -19,7 +19,9 @@ class SonarQube implements Serializable {
     * This method is using the provided username to request an API Token.
     */
     def getAuthToken(String tokenName) {
-        URL sonarQubeTokenGenerateUrl = new URL(sonarQubeBaseUrl + "/api/user_tokens/generate")
+        //URL sonarQubeTokenGenerateUrl = new URL(sonarQubeBaseUrl + "/api/user_tokens/generate")
+        URL sonarQubeTokenGenerateUrl = new URL(sonarQubeBaseUrl + "api/user_tokens/search")
+        
 
         HttpURLConnection connection = (HttpURLConnection) sonarQubeTokenGenerateUrl.openConnection();
         connection.setDoOutput( true );
