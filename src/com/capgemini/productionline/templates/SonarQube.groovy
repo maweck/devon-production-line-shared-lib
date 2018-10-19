@@ -19,36 +19,7 @@ class SonarQube implements Serializable {
     * This method is using the provided username to request an API Token.
     */
     def getAuthToken(String tokenName) {
-        //URL sonarQubeTokenGenerateUrl = new URL(sonarQubeBaseUrl + "/api/user_tokens/generate")
-      URL sonarQubeTokenGenerateUrl = new URL(sonarQubeBaseUrl + "/api/user_tokens/generate")
-
-        HttpURLConnection connection = (HttpURLConnection) sonarQubeTokenGenerateUrl.openConnection();
-        connection.setDoOutput( true );
-        connection.addRequestProperty("X-Forwarded-User", username)
-        connection.addRequestProperty("X-Forwarded-Group", "sonarqube-admins")
-        connection.addRequestProperty("Accept", "application/json")
-        //connection.setRequestMethod("POST")
-        connection.setRequestMethod("GET")
-
-        OutputStream outputStream = connection.getOutputStream();
-        BufferedWriter writer = new BufferedWriter(
-                new OutputStreamWriter(outputStream, "UTF-8"));
-        writer.write("login=" + username + "&name="+tokenName);
-        writer.flush();
-        writer.close();
-        outputStream.close();
-        
-        //connection.connect()
-        
-        BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-        StringBuilder sb = new StringBuilder();
-        String line;
-        while ((line = br.readLine()) != null) {
-            sb.append(line+"\n");
-        }
-        br.close();
-
-        return connection.getResponseCode() + ":" + connection.getResponseMessage() + ":" +  connection.getContent() + ":" + sb.toString();
+        return httpRequest consoleLogResponseBody: true, customHeaders: [[maskValue: true, name: 'X-Forwarded-User', value: username], [maskValue: true, name: 'X-Forwarded-Groups', value: 'admins']], httpMode: 'POST', url: 'http://sonarqube-core:9000/sonarqube/api/user_tokens/generate?name=' + tokenName
     }
 
     def importQualityProfile() {
